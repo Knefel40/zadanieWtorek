@@ -98,3 +98,39 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+
+
+
+
+
+def szyfruj(slowo, klucz):
+    zaszyfrowane_slowo = ""
+    for litera in slowo:
+        if litera.isalpha():
+            kod_litery = ord(litera)
+            nowy_kod = (kod_litery + klucz%26)
+            if nowy_kod > ord("Z"):
+                nowy_kod = nowy_kod - 26
+            zaszyfrowana_litera = chr(nowy_kod)
+            zaszyfrowane_slowo += zaszyfrowana_litera
+        else:
+            zaszyfrowane_slowo += litera
+    return zaszyfrowane_slowo
+
+
+
+klucz = 107
+
+with open("dane_6_1.txt", "r") as plik_wejsciowy:
+    slowa = plik_wejsciowy.readlines()
+
+zaszyfrowane_slowa = [szyfruj(slowo.strip(), klucz) for slowo in slowa]
+
+with open("wyniki_6_1.txt", "w") as plik_wyjsciowy:
+    for zaszyfrowane_slowo in zaszyfrowane_slowa:
+        print(zaszyfrowane_slowo)
+        plik_wyjsciowy.write(zaszyfrowane_slowo + "\n")
+
